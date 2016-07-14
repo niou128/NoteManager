@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="NotesNote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="date_creation" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="date_update" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="users_users" Relationship="Self.FK_notes_notes_ToTable" FromRole="notes_notes" ToRole="users_users" />
+  </EntityType>
+  <EntityType Name="UsersUser">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="notes_notes" Relationship="Self.FK_notes_notes_ToTable" FromRole="users_users" ToRole="notes_notes" />
+  </EntityType>
+  <Association Name="FK_notes_notes_ToTable">
+    <End Role="users_users" Type="DatabaseModel.UsersUser" Multiplicity="1" />
+    <End Role="notes_notes" Type="DatabaseModel.NotesNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users_users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="notes_notes">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="notes_notes" EntityType="DatabaseModel.NotesNote" />
+    <EntitySet Name="users_users" EntityType="DatabaseModel.UsersUser" />
+    <AssociationSet Name="FK_notes_notes_ToTable" Association="Self.FK_notes_notes_ToTable">
+      <End Role="users_users" EntitySet="users_users" />
+      <End Role="notes_notes" EntitySet="notes_notes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

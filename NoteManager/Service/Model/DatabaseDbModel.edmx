@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="notes_notes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="content" Type="text" Nullable="false" />
+          <Property Name="date_creation" Type="datetime" Nullable="false" />
+          <Property Name="date_update" Type="datetime" />
+        </EntityType>
+        <EntityType Name="users_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_notes_notes_ToTable">
+          <End Role="users_users" Type="Self.users_users" Multiplicity="1" />
+          <End Role="notes_notes" Type="Self.notes_notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users_users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notes_notes">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="notes_notes" EntityType="Self.notes_notes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users_users" EntityType="Self.users_users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_notes_notes_ToTable" Association="Self.FK_notes_notes_ToTable">
+            <End Role="users_users" EntitySet="users_users" />
+            <End Role="notes_notes" EntitySet="notes_notes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="NotesNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_creation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_update" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="users_users" Relationship="Self.FK_notes_notes_ToTable" FromRole="notes_notes" ToRole="users_users" />
+        </EntityType>
+        <EntityType Name="UsersUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="notes_notes" Relationship="Self.FK_notes_notes_ToTable" FromRole="users_users" ToRole="notes_notes" />
+        </EntityType>
+        <Association Name="FK_notes_notes_ToTable">
+          <End Role="users_users" Type="DatabaseModel.UsersUser" Multiplicity="1" />
+          <End Role="notes_notes" Type="DatabaseModel.NotesNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users_users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notes_notes">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="notes_notes" EntityType="DatabaseModel.NotesNote" />
+          <EntitySet Name="users_users" EntityType="DatabaseModel.UsersUser" />
+          <AssociationSet Name="FK_notes_notes_ToTable" Association="Self.FK_notes_notes_ToTable">
+            <End Role="users_users" EntitySet="users_users" />
+            <End Role="notes_notes" EntitySet="notes_notes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="notes_notes">
+            <EntityTypeMapping TypeName="DatabaseModel.NotesNote">
+              <MappingFragment StoreEntitySet="notes_notes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="date_creation" ColumnName="date_creation" />
+                <ScalarProperty Name="date_update" ColumnName="date_update" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users_users">
+            <EntityTypeMapping TypeName="DatabaseModel.UsersUser">
+              <MappingFragment StoreEntitySet="users_users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

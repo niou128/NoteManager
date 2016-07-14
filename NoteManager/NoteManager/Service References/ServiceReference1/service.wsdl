@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Service" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_login_InputMessage">
+    <wsdl:part name="parameters" element="tns:login" />
+  </wsdl:message>
+  <wsdl:message name="IService1_login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:loginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_subscribeUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:subscribeUser" />
+  </wsdl:message>
+  <wsdl:message name="IService1_subscribeUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:subscribeUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteGetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:noteGetAll" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteGetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:noteGetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteSearch_InputMessage">
+    <wsdl:part name="parameters" element="tns:noteSearch" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteSearch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:noteSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteGetSingle_InputMessage">
+    <wsdl:part name="parameters" element="tns:noteGetSingle" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteGetSingle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:noteGetSingleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteCreate_InputMessage">
+    <wsdl:part name="parameters" element="tns:noteCreate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteCreate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:noteCreateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:noteUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:noteUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:noteDelete" />
+  </wsdl:message>
+  <wsdl:message name="IService1_noteDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:noteDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/login" message="tns:IService1_login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/loginResponse" message="tns:IService1_login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="subscribeUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/subscribeUser" message="tns:IService1_subscribeUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/subscribeUserResponse" message="tns:IService1_subscribeUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="noteGetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/noteGetAll" message="tns:IService1_noteGetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/noteGetAllResponse" message="tns:IService1_noteGetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="noteSearch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/noteSearch" message="tns:IService1_noteSearch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/noteSearchResponse" message="tns:IService1_noteSearch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="noteGetSingle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/noteGetSingle" message="tns:IService1_noteGetSingle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/noteGetSingleResponse" message="tns:IService1_noteGetSingle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="noteCreate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/noteCreate" message="tns:IService1_noteCreate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/noteCreateResponse" message="tns:IService1_noteCreate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="noteUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/noteUpdate" message="tns:IService1_noteUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/noteUpdateResponse" message="tns:IService1_noteUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="noteDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/noteDelete" message="tns:IService1_noteDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/noteDeleteResponse" message="tns:IService1_noteDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataResponse" message="tns:IService1_GetData_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="login">
+      <soap:operation soapAction="http://tempuri.org/IService1/login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="subscribeUser">
+      <soap:operation soapAction="http://tempuri.org/IService1/subscribeUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="noteGetAll">
+      <soap:operation soapAction="http://tempuri.org/IService1/noteGetAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="noteSearch">
+      <soap:operation soapAction="http://tempuri.org/IService1/noteSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="noteGetSingle">
+      <soap:operation soapAction="http://tempuri.org/IService1/noteGetSingle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="noteCreate">
+      <soap:operation soapAction="http://tempuri.org/IService1/noteCreate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="noteUpdate">
+      <soap:operation soapAction="http://tempuri.org/IService1/noteUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="noteDelete">
+      <soap:operation soapAction="http://tempuri.org/IService1/noteDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/Service/Service1/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

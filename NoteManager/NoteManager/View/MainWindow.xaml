@@ -1,0 +1,176 @@
+﻿<Window x:Class="NoteManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:app="clr-namespace:NoteManager"
+        xmlns:logCtrl="clr-namespace:NoteManager"
+        xmlns:seeker="clr-namespace:NoteManager"
+        xmlns:b ="clr-namespace:NoteManager"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="{Binding Path=TitleWindow}"
+        Height="645" 
+        Width="665">
+
+    <Window.DataContext>
+        <app:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <DockPanel HorizontalAlignment="Stretch" Width="645" LastChildFill="True" Margin="0,0,0,0">
+            <!--menu -->
+            <Menu DockPanel.Dock="Top" 
+                  Height="28" 
+                  IsEnabled="{Binding Path=IsMenuEnabled,
+                             ConverterParameter=true,
+                             Converter={StaticResource isEnableConverter}, 
+                             Mode=TwoWay}">
+
+                <MenuItem Header ="Note" VerticalAlignment="Center">
+                    <MenuItem Header ="Nouveau" IsEnabled="False"/>
+                    <MenuItem Header ="Ouvrir" 
+                              Command="{Binding Path=Open}"
+                              IsEnabled="{Binding Path=IsOpenEnabled,
+                                        ConverterParameter=true,
+                                        Converter={StaticResource isEnableConverter}, 
+                                        Mode=TwoWay}"
+                     />
+                    <MenuItem Header ="Fermer" IsEnabled="False"/>
+                    <MenuItem Header ="Enregistrer"
+                              Command="{Binding Path=Save}"
+                              IsEnabled="{Binding Path=IsSaveEnabled,
+                                        ConverterParameter=true,
+                                        Converter={StaticResource isEnableConverter}, 
+                                        Mode=TwoWay}"
+                     />
+                    <MenuItem Header ="Enregistrer sous..."
+                              Command="{Binding Path=SaveAs}"
+                              IsEnabled="{Binding Path=IsSaveAsEnabled,
+                                        ConverterParameter=true,
+                                        Converter={StaticResource isEnableConverter}, 
+                                        Mode=TwoWay}"
+                     />
+                    <MenuItem Header ="Supprimer..."
+                              Command="{Binding Path=DeleteNote}"
+                              IsEnabled="{Binding Path=IsDeleteEnabled,
+                                        ConverterParameter=true,
+                                        Converter={StaticResource isEnableConverter}, 
+                                        Mode=TwoWay}"
+                     />
+                    <MenuItem Header="Quitter" Command="{Binding Path=Quit}" />
+                </MenuItem>
+
+                <MenuItem Header ="Edition" VerticalAlignment="Center" >
+                    <MenuItem Header ="Copier" Command="{Binding Path=Copy}"  IsEnabled="True" />
+                    <MenuItem Header ="Coller" Command="{Binding Path=Paste}" IsEnabled="True" />
+                    <MenuItem Header ="Couper"  IsEnabled="False" />
+                    <MenuItem Header ="Supprimer"  IsEnabled="False" />
+                    <MenuItem Header="Rechercher"
+                              Command="{Binding Path=search}"
+                          IsEnabled="{Binding Path=IsSeekerEnabled,
+                                        ConverterParameter=true,
+                                        Converter={StaticResource isEnableConverter}, 
+                                        Mode=TwoWay}">
+                        <!--<seeker:Seeker />-->
+                    </MenuItem>
+                </MenuItem>
+
+                <Separator Width="80" Visibility="Hidden" />
+
+                <MenuItem Header="Déconnexion"
+                          FontWeight="Bold"
+                          VerticalAlignment="Center"
+                          Command="{Binding Path=LogOut}" />
+            </Menu>
+            <!--fin du menu -->
+            
+            <!--login -->
+            <Grid  Margin="0,0,0,0" 
+                   Height="575"
+                   Width="645"
+                   HorizontalAlignment="Stretch"
+                   Visibility="{Binding Path=VisibilityInscriptionConnection,
+                   Converter={StaticResource isVisible}, Mode=TwoWay}" >
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF2A4949" Offset="1"/>
+                        <GradientStop Color="#FF38B0B0" Offset="0.004"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <logCtrl:Login Margin="-10,0,10,0" />
+
+            </Grid>
+
+
+            <!--début des notes -->
+            <Grid Margin="0,0,0,0"
+                  Height="575" 
+                  Width="645"
+                  HorizontalAlignment="Stretch" 
+                 Visibility="{Binding Path=VisibilityNote,
+                  Converter={StaticResource isVisible}, Mode=TwoWay}" >
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#A4A4A4" Offset="1"/>
+                        <GradientStop Color="#2E2E2E" Offset="0.004"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <TextBox
+                           Name="noteBox"
+                           Margin="20,20,20,20"
+                           Background="#E6E6E6"
+                           Cursor="Pen"
+                           FontFamily="Comic Sans MS"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"
+                           FontSize="18"
+                           Focusable="True"
+                           AllowDrop="True"
+                           ScrollViewer.CanContentScroll="True"
+                           Language="fr-fr"
+                           Text="{Binding Path=ContentNote,
+                                  UpdateSourceTrigger=PropertyChanged}"
+                           AcceptsReturn="True" 
+                           AcceptsTab="True" 
+                           AutoWordSelection="True" 
+                           TextWrapping="Wrap"
+                           IsInactiveSelectionHighlightEnabled="True"
+                    >
+                    <TextBox.InputBindings>
+                        <KeyBinding 
+                                    Gesture="Ctrl+s"
+                                    Command="{Binding Path=Save}"
+                        />
+                        <KeyBinding 
+                                    Gesture="Ctrl+Shift+s"
+                                    Command="{Binding Path=SaveAs}"
+                        />
+                        <KeyBinding 
+                                    Gesture="Ctrl+o"
+                                    Command="{Binding Path=Open}"
+                        />
+                        <KeyBinding 
+                                    Gesture="Ctrl+c"
+                                    Command="{Binding Path=Copy}"
+                        />
+                        <KeyBinding 
+                                    Gesture="Ctrl+v"
+                                    Command="{Binding Path=Paste}"
+                        />
+                        <MouseBinding
+                                    Gesture="MiddleClick" 
+                                    Command="{Binding Path=Paste}"
+                        />
+                    </TextBox.InputBindings>
+                </TextBox>
+
+            </Grid>
+            <!--Fin des notes -->
+        </DockPanel>
+
+
+
+    </Grid>
+</Window>

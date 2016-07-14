@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="UsersUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UsersUser" nillable="true" type="tns:UsersUser" />
+  <xs:complexType name="ArrayOfNotesNote">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NotesNote" nillable="true" type="tns:NotesNote" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNotesNote" nillable="true" type="tns:ArrayOfNotesNote" />
+  <xs:complexType name="NotesNote">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="date_creation" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="date_update" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="id_user" type="xs:int" />
+      <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NotesNote" nillable="true" type="tns:NotesNote" />
+</xs:schema>

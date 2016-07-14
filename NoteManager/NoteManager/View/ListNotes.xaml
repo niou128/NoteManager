@@ -1,0 +1,70 @@
+﻿<Window x:Class="NoteManager.ListNotes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:app="clr-namespace:NoteManager"
+        Title="Liste des notes"
+        Height="505"
+        Width="448"
+        Background="#FF9CABC1"
+        ResizeMode="NoResize"
+        WindowStyle="ToolWindow"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        WindowStartupLocation="CenterScreen"
+>
+
+    <Window.DataContext>
+        <app:ListNotesViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="345*"/>
+            <ColumnDefinition Width="65*"/>
+            <ColumnDefinition Width="27*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox
+                HorizontalAlignment="Left"
+                Height="320"
+                Margin="80,80,0,0"
+                VerticalAlignment="Top"
+                Width="280"
+                FontSize="16"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                HorizontalContentAlignment="Left"
+                ItemsSource="{Binding Path=TitlesNotesFound}" Grid.ColumnSpan="2"
+                SelectedValue="{Binding Path=ChoosenNote}"
+         />
+
+        <Label
+                Content="{Binding Path=TitleList}"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Center"
+                Margin="90,30,0,0"
+                VerticalAlignment="Top"
+                Width="250"
+                Height="30" FontWeight="Bold"
+         />
+
+        <Button
+                Content="{Binding Path=NameButtonAction}"
+                HorizontalAlignment="Left"
+                Margin="120,420,0,0"
+                VerticalAlignment="Top"
+                Width="75"
+                Command="{Binding Path=ValidateChoice}"
+         />
+
+        <Button
+                Content="Annuler"
+                HorizontalAlignment="Left"
+                Margin="245,420,0,0"
+                VerticalAlignment="Top"
+                Width="75"
+                Command="{Binding Path=CancelChoice}"
+         />
+
+
+    </Grid>
+</Window>
